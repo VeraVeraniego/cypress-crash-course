@@ -23,4 +23,16 @@ describe("Accomplishments", () => {
       "be.visible"
     );
   });
+  it.only("should return back to accomplishment dashboard with empty inputs whe back button clicked", () => {
+    cy.get("input[placeholder='Title']").type("My React accomplishment");
+    cy.get("textarea[placeholder='My accomplishment...']").type(
+      "I did good progress learning front end development"
+    );
+    cy.get("input[type='checkbox']").click();
+    cy.contains(/submit accomplishment/i).click();
+    cy.contains(/go back/i).click();
+    cy.get("input[placeholder='Title']").should("be.empty");
+    cy.get("textarea[placeholder='My accomplishment...']").should("be.empty");
+    cy.get("input[type='checkbox']").should("not.be.checked");
+  });
 });
